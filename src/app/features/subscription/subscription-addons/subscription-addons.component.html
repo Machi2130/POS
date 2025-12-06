@@ -1,0 +1,150 @@
+<div class="w-full px-4 py-8 md:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <!-- Breadcrumb -->
+    <div class="mb-8">
+      <div class="flex flex-wrap items-center gap-2 text-sm text-gray-400">
+        <a routerLink="/subscription/plans" class="hover:text-primary transition-colors">Subscriptions</a>
+        <span>/</span>
+        <a routerLink="/subscription/plans" class="hover:text-primary transition-colors">Manage Plan</a>
+        <span>/</span>
+        <span class="font-medium text-white">Add-on Features</span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-black tracking-tight text-white">Add-on Features</h1>
+      <p class="mt-2 text-base text-gray-400">Enhance your experience by adding these powerful features to your plan.</p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start">
+      <!-- Add-ons List (Left Column) -->
+      <div class="flex flex-col gap-4 lg:col-span-2">
+        <div 
+          *ngFor="let addonItem of addons; let i = index"
+          class="flex flex-col rounded-xl border transition-all duration-200 overflow-hidden"
+          [ngClass]="{
+            'border-white/10 bg-card-dark': !addonItem.selected,
+            'border-primary/50 bg-primary/5': addonItem.selected
+          }">
+          
+          <div class="flex items-center gap-4 p-4 min-h-[72px]">
+            <!-- Icon & Info -->
+            <div class="flex items-center gap-4 flex-1 min-w-0">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5">
+                <span class="material-symbols-outlined text-2xl text-gray-300">
+                  {{ addonItem.addon.icon }}
+                </span>
+              </div>
+              <div class="flex flex-col justify-center min-w-0 flex-1">
+                <p class="text-base font-semibold text-white truncate">
+                  {{ addonItem.addon.name }}
+                </p>
+                <p class="text-sm text-gray-400 mt-1 line-clamp-2">
+                  {{ addonItem.addon.description }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Price & Toggle -->
+            <div class="flex items-center gap-4 shrink-0">
+              <span class="text-sm font-semibold text-white whitespace-nowrap">
+                ${{ addonItem.addon.price }}/mo
+              </span>
+              
+              <!-- Custom Toggle Switch -->
+              <label 
+                class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full p-0.5 transition-colors"
+                [ngClass]="{
+                  'bg-gray-700': !addonItem.selected,
+                  'bg-primary': addonItem.selected
+                }">
+                <div 
+                  class="h-full w-[27px] transform rounded-full bg-white transition-all duration-200 ease-in-out shadow-md"
+                  [ngClass]="{
+                    'translate-x-0': !addonItem.selected,
+                    'translate-x-5': addonItem.selected
+                  }">
+                </div>
+                <input 
+                  type="checkbox"
+                  class="sr-only"
+                  [checked]="addonItem.selected"
+                  (change)="toggleAddon(i)"/>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary Sidebar (Right Column) -->
+      <aside class="lg:sticky lg:top-24">
+        <div class="flex flex-col rounded-xl border border-white/10 bg-card-dark p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-white">Order Summary</h3>
+          
+          <!-- Line Items -->
+          <div class="mt-6 flex flex-col gap-3">
+            <!-- Current Plan -->
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">{{ currentPlan.name }}</span>
+              <span class="font-medium text-white">${{ currentPlan.price }}.00/mo</span>
+            </div>
+
+            <!-- Selected Add-ons -->
+            <div 
+              *ngFor="let selected of selectedAddons"
+              class="flex justify-between text-sm">
+              <span class="text-gray-400">{{ selected.addon.name }}</span>
+              <span class="font-medium text-white">${{ selected.addon.price }}.00/mo</span>
+            </div>
+
+            <!-- Empty State -->
+            <p *ngIf="selectedAddons.length === 0" class="text-sm text-gray-500 italic">
+              No add-ons selected
+            </p>
+          </div>
+
+          <!-- Divider -->
+          <div class="my-6 h-px w-full bg-white/10"></div>
+
+          <!-- Subtotal & Tax -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">Subtotal</span>
+              <span class="font-medium text-white">${{ subtotal }}.00</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">Taxes (Est.)</span>
+              <span class="font-medium text-white">${{ tax.toFixed(2) }}</span>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="my-6 h-px w-full bg-white/10"></div>
+
+          <!-- Total -->
+          <div class="flex items-baseline justify-between mb-6">
+            <span class="text-lg font-bold text-white">Total Due Today</span>
+            <span class="text-3xl font-extrabold text-white">${{ total.toFixed(2) }}</span>
+          </div>
+
+          <!-- CTA Button -->
+          <button 
+            (click)="continueToPayment()"
+            class="flex h-12 w-full items-center justify-center rounded-lg bg-primary text-base font-bold text-white hover:bg-primary-hover transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-card-dark">
+            Continue to Payment
+          </button>
+
+          <!-- Back Link -->
+          <a 
+            routerLink="/subscription/plans"
+            class="mt-4 text-center text-sm text-gray-400 hover:text-white transition-colors flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            Back to Plans
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

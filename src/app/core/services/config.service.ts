@@ -6,7 +6,6 @@ import { AppConfig, MenuItem } from '../models/menu-item.model';
   providedIn: 'root'
 })
 export class ConfigService {
-
   constructor() {}
 
   getConfig(): Observable<AppConfig> {
@@ -25,7 +24,7 @@ export class ConfigService {
         {
           id: 'inventory',
           label: 'Inventory',
-          icon: 'inventory_2',  // ✅ Material icon
+          icon: 'inventory_2',
           route: '/inventory',
           enabled: true,
           order: 2
@@ -68,6 +67,14 @@ export class ConfigService {
               route: '/subscription/history',
               enabled: true,
               order: 2
+            },
+            {
+              id: 'subscription-addons',  // ✅ NEW MENU ITEM
+              label: 'Add-ons',
+              icon: 'extension',
+              route: '/subscription/addons',
+              enabled: true,
+              order: 3
             }
           ]
         },

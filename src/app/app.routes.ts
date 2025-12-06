@@ -31,6 +31,12 @@ export const routes: Routes = [
               import('./features/subscription/subscription-history/subscription-history.component')
                 .then(m => m.SubscriptionHistoryComponent)
           },
+          {
+            path: 'addons',  // ✅ NEW ROUTE
+            loadComponent: () =>
+              import('./features/subscription/subscription-addons/subscription-addons.component')
+                .then(m => m.SubscriptionAddonsComponent)
+          },
           { path: '', redirectTo: 'plans', pathMatch: 'full' }
         ]
       },
