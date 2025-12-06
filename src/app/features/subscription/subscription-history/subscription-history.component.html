@@ -1,0 +1,148 @@
+<main class="flex-1 flex flex-col p-6 lg:p-10">
+  <div class="w-full max-w-7xl mx-auto flex flex-col gap-6">
+
+    <!-- Page Heading -->
+    <header class="flex flex-wrap justify-between items-center gap-4">
+      <div class="flex flex-col gap-1">
+        <h1 class="text-3xl font-black leading-tight tracking-tight">
+          Subscription History
+        </h1>
+        <p class="text-base font-normal leading-normal" style="color: var(--text-secondary)">
+          View and manage your past subscription activities.
+        </p>
+      </div>
+      <button
+        (click)="onDownloadHistory()"
+        class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-full h-10 px-5 text-sm font-bold leading-normal tracking-wide transition-colors btn-manage"
+      >
+        <span class="material-symbols-outlined mr-2 text-lg">download</span>
+        <span class="truncate">Download History</span>
+      </button>
+    </header>
+
+    <!-- Filter Chips -->
+    <div class="flex gap-2 p-1 overflow-x-auto">
+      <button
+        *ngFor="let filter of filters"
+        (click)="onFilterChange(filter.type)"
+        class="filter-chip flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 transition-colors"
+        [class.active]="filter.active"
+      >
+        <p class="text-sm font-medium leading-normal">{{ filter.label }}</p>
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-12">
+      <span class="material-symbols-outlined animate-spin text-4xl" style="color: var(--primary)">refresh</span>
+      <p class="mt-4" style="color: var(--text-primary)">Loading history...</p>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="!isLoading" class="w-full @container">
+      <div class="overflow-hidden rounded border history-table">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 text-left w-1/6 text-xs font-medium uppercase tracking-wider table-header">
+                Date
+              </th>
+              <th class="px-6 py-3 text-left w-1/4 text-xs font-medium uppercase tracking-wider table-header">
+                Plan Purchased
+              </th>
+              <th class="px-6 py-3 text-left w-1/6 text-xs font-medium uppercase tracking-wider table-header">
+                Amount Paid
+              </th>
+              <th class="px-6 py-3 text-left w-1/6 text-xs font-medium uppercase tracking-wider table-header">
+                Billing Cycle
+              </th>
+              <th class="px-6 py-3 text-left w-1/6 text-xs font-medium uppercase tracking-wider table-header">
+                Payment Status
+              </th>
+              <th class="px-6 py-3 text-left w-1/6 text-xs font-medium uppercase tracking-wider table-header">
+                Plan Type
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10">
+            <tr
+              *ngFor="let item of history"
+              class="table-row transition-colors"
+            >
+              <td class="h-[72px] px-6 py-4 text-sm font-normal table-cell-muted">
+                {{ formatDate(item.date) }}
+              </td>
+              <td class="h-[72px] px-6 py-4 text-sm font-medium table-cell-primary">
+                {{ item.planName }}
+              </td>
+              <td class="h-[72px] px-6 py-4 text-sm font-normal table-cell-muted">
+                {{ item.currencySymbol }}{{ item.amount.toFixed(2) }}
+              </td>
+              <td class="h-[72px] px-6 py-4 text-sm font-normal table-cell-muted">
+                {{ item.billingCycle | titlecase }}
+              </td>
+              <td class="h-[72px] px-6 py-4 text-sm font-normal">
+                <span class="status-badge inline-flex items-center rounded-full h-7 px-3 text-xs font-medium" [ngClass]="getStatusClass(item.paymentStatus)">
+                  {{ item.paymentStatus | titlecase }}
+                </span>
+              </td>
+              <td class="h-[72px] px-6 py-4 text-sm font-normal">
+                <span class="type-badge inline-flex items-center rounded-full h-7 px-3 text-xs font-medium" [ngClass]="getTypeClass(item.planType)">
+                  {{ item.planType | titlecase }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="history.length === 0">
+              <td colspan="6" class="h-[200px] text-center">
+                <div class="flex flex-col items-center justify-center gap-3" style="color: var(--text-secondary)">
+                  <span class="material-symbols-outlined text-5xl opacity-50">receipt_long</span>
+                  <p class="text-base font-medium">No subscription history found</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-center p-4">
+      <button
+        (click)="onPageChange(pagination.currentPage - 1)"
+        [disabled]="pagination.currentPage === 1"
+        class="pagination-btn flex size-10 items-center justify-center transition-colors"
+        [class.disabled]="pagination.currentPage === 1"
+      >
+        <span class="material-symbols-outlined text-xl">chevron_left</span>
+      </button>
+
+      <ng-container *ngFor="let page of getPaginationPages()">
+        <button
+          *ngIf="page !== '...'"
+          (click)="onPageChange(page)"
+          class="pagination-page text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full transition-colors"
+          [class.active]="page === pagination.currentPage"
+        >
+          {{ page }}
+        </button>
+        <span
+          *ngIf="page === '...'"
+          class="text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full pagination-ellipsis"
+        >
+          ...
+        </span>
+      </ng-container>
+
+      <button
+        (click)="onPageChange(pagination.currentPage + 1)"
+        [disabled]="pagination.currentPage === pagination.totalPages"
+        class="pagination-btn flex size-10 items-center justify-center transition-colors"
+        [class.disabled]="pagination.currentPage === pagination.totalPages"
+      >
+        <span class="material-symbols-outlined text-xl">chevron_right</span>
+      </button>
+    </div>
+  </div>
+</main>

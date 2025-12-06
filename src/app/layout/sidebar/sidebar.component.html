@@ -1,0 +1,43 @@
+<aside
+  class="flex h-screen flex-col bg-[#1e293b] text-white fixed transition-all duration-300 ease-in-out z-20"
+  [ngClass]="isCollapsed ? 'w-[80px]' : 'w-[250px]'"
+>
+  <div class="flex flex-col gap-4 p-6">
+    <!-- Company Logo & Name -->
+    <div class="flex items-center gap-3 mb-4">
+      <div
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 flex-shrink-0"
+        [style.background-image]="'url(' + (companyLogo$ | async) + ')'"
+        [attr.data-alt]="(companyName$ | async) + ' logo'"
+      ></div>
+      <h1
+        class="text-white text-lg font-bold transition-all duration-300 overflow-hidden whitespace-nowrap"
+        [ngClass]="isCollapsed ? 'opacity-0 w-0' : 'opacity-100'"
+      >
+        {{ companyName$ | async }}
+      </h1>
+      <!-- Toggle Button -->
+      <button
+        (click)="toggleSidebar()"
+        class="p-1 rounded-md hover:bg-white/10 transition-colors text-gray-400 hover:text-white"
+        [ngClass]="isCollapsed ? '' : 'ml-auto'"
+      >
+        <span
+          class="material-symbols-outlined text-xl transition-transform duration-300"
+          [ngClass]="isCollapsed ? 'rotate-180' : ''"
+        >
+          chevron_left
+        </span>
+      </button>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="flex flex-col gap-1">
+      <app-menu-item
+        *ngFor="let item of menuItems$ | async"
+        [item]="item"
+        [collapsed]="isCollapsed"
+      ></app-menu-item>
+    </div>
+  </div>
+</aside>

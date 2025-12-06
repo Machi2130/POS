@@ -1,0 +1,90 @@
+<main class="flex flex-1 justify-center py-10 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 min-h-screen">
+  <div class="flex flex-col w-full max-w-6xl flex-1 items-center">
+
+    <!-- Header with History Link -->
+    <div class="flex flex-wrap justify-between gap-4 w-full max-w-5xl items-center mb-8">
+      <div class="flex flex-col gap-3 text-center sm:text-left w-full">
+        <div class="flex items-center justify-between w-full">
+          <h1 class="text-4xl sm:text-5xl font-black leading-tight tracking-[-0.033em]">
+            Choose the plan that's right for you
+          </h1>
+          <!-- 🆕 ADD HISTORY LINK -->
+          <button
+            routerLink="/subscription/history"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors btn-manage"
+          >
+            <span class="material-symbols-outlined text-lg">history</span>
+            <span class="hidden md:inline">View History</span>
+          </button>
+        </div>
+        <p class="text-lg font-normal leading-normal" style="color: var(--text-secondary)">
+          Save up to 20% with a yearly plan.
+        </p>
+      </div>
+    </div>
+
+    <!-- Billing Cycle Toggle -->
+    <div class="flex px-4 py-8 justify-center w-full max-w-sm">
+      <div class="billing-toggle flex h-12 flex-1 items-center justify-center rounded-xl p-1.5">
+        <label 
+          class="billing-toggle-btn flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-sm font-medium leading-normal transition-all duration-200"
+          [class.active]="billingCycle === 'monthly'"
+        >
+          <span class="truncate">Monthly</span>
+          <input 
+            type="radio" 
+            name="billing-cycle" 
+            value="monthly"
+            [checked]="billingCycle === 'monthly'"
+            (change)="onBillingCycleChange('monthly')"
+            class="invisible w-0"
+          />
+        </label>
+        
+        <label 
+          class="billing-toggle-btn flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-sm font-medium leading-normal transition-all duration-200"
+          [class.active]="billingCycle === 'yearly'"
+        >
+          <span class="truncate">Yearly</span>
+          <input 
+            type="radio" 
+            name="billing-cycle" 
+            value="yearly"
+            [checked]="billingCycle === 'yearly'"
+            (change)="onBillingCycleChange('yearly')"
+            class="invisible w-0"
+          />
+        </label>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-12">
+      <span class="material-symbols-outlined animate-spin text-4xl" style="color: var(--primary)">refresh</span>
+      <p class="mt-4" style="color: var(--text-primary)">Loading plans...</p>
+    </div>
+
+    <!-- Plans Grid -->
+    <div 
+      *ngIf="!isLoading"
+      class="grid w-full grid-cols-1 gap-6 px-4 py-3 md:grid-cols-2 lg:grid-cols-3 xl:gap-8 max-w-6xl"
+    >
+      <app-plan-card
+        *ngFor="let plan of plans"
+        [plan]="plan"
+        [billingCycle]="billingCycle"
+        (selectPlan)="onSelectPlan($event)"
+      ></app-plan-card>
+    </div>
+
+    <!-- Contact Sales -->
+    <div class="w-full max-w-5xl mt-16 text-center contact-sales">
+      <h4 class="text-sm font-bold leading-normal tracking-[0.015em] px-4 py-2">
+        Need a custom plan? 
+        <a routerLink="/contact-sales" class="cursor-pointer">
+          Contact Sales
+        </a>
+      </h4>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,84 @@
+{
+  "COMMON": {
+    "APP_NAME": "POS System",
+    "WELCOME": "Welcome",
+    "LOADING": "Loading...",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "SEARCH": "Search",
+    "LOGOUT": "Logout"
+  },
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "BILLING": "Billing",
+    "INVENTORY": "Inventory",
+    "CUSTOMERS": "Customers",
+    "REPORTS": "Reports",
+    "SUBSCRIPTION": "Subscription",
+    "SUBSCRIPTION_PLANS": "Plans",
+    "SUBSCRIPTION_HISTORY": "History",
+    "SETTINGS": "Settings",
+    "HELP": "Help"
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard",
+    "TOTAL_SALES": "Total Sales",
+    "TOTAL_ORDERS": "Total Orders",
+    "TOTAL_CUSTOMERS": "Total Customers",
+    "REVENUE": "Revenue"
+  },
+  "SUBSCRIPTION": {
+    "PLANS": {
+      "TITLE": "Choose the plan that's right for you",
+      "SUBTITLE": "Save up to 20% with a yearly plan.",
+      "MONTHLY": "Monthly",
+      "YEARLY": "Yearly",
+      "FREE": "Free",
+      "CURRENT_PLAN": "Current Plan",
+      "RECOMMENDED": "Recommended",
+      "CHOOSE_PLAN": "Choose Plan",
+      "UPGRADE": "Upgrade",
+      "MANAGE_PLAN": "Manage Plan",
+      "CONTACT_SALES": "Need a custom plan? Contact Sales"
+    },
+    "HISTORY": {
+      "TITLE": "Subscription History",
+      "SUBTITLE": "View and manage your past subscription activities.",
+      "DOWNLOAD": "Download History",
+      "DATE": "Date",
+      "PLAN": "Plan Purchased",
+      "AMOUNT": "Amount Paid",
+      "BILLING_CYCLE": "Billing Cycle",
+      "PAYMENT_STATUS": "Payment Status",
+      "PLAN_TYPE": "Plan Type",
+      "FILTERS": {
+        "ALL": "All",
+        "RENEWALS": "Renewals",
+        "UPGRADES": "Upgrades",
+        "PAYMENTS": "Payments"
+      },
+      "STATUS": {
+        "PAID": "Paid",
+        "PENDING": "Pending",
+        "FAILED": "Failed",
+        "REFUNDED": "Refunded"
+      },
+      "TYPE": {
+        "RENEWAL": "Renewal",
+        "UPGRADE": "Upgrade",
+        "DOWNGRADE": "Downgrade",
+        "TRIAL": "Trial"
+      }
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "ACCOUNT": "Account Settings",
+    "PROFILE": "Profile",
+    "NOTIFICATIONS": "Notifications",
+    "LANGUAGE": "Language",
+    "THEME": "Theme"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "COMMON": {
+    "APP_NAME": "पीओएस सिस्टम",
+    "WELCOME": "स्वागत है",
+    "LOADING": "लोड हो रहा है...",
+    "SAVE": "सहेजें",
+    "CANCEL": "रद्द करें",
+    "DELETE": "हटाएं",
+    "EDIT": "संपादित करें",
+    "SEARCH": "खोजें",
+    "LOGOUT": "लॉग आउट"
+  },
+  "MENU": {
+    "DASHBOARD": "डैशबोर्ड",
+    "BILLING": "बिलिंग",
+    "INVENTORY": "इन्वेंटरी",
+    "CUSTOMERS": "ग्राहक",
+    "REPORTS": "रिपोर्ट",
+    "SUBSCRIPTION": "सदस्यता",
+    "SUBSCRIPTION_PLANS": "योजनाएं",
+    "SUBSCRIPTION_HISTORY": "इतिहास",
+    "SETTINGS": "सेटिंग्स",
+    "HELP": "मदद"
+  },
+  "DASHBOARD": {
+    "TITLE": "डैशबोर्ड",
+    "TOTAL_SALES": "कुल बिक्री",
+    "TOTAL_ORDERS": "कुल ऑर्डर",
+    "TOTAL_CUSTOMERS": "कुल ग्राहक",
+    "REVENUE": "राजस्व"
+  },
+  "SUBSCRIPTION": {
+    "PLANS": {
+      "TITLE": "वह योजना चुनें जो आपके लिए सही है",
+      "SUBTITLE": "वार्षिक योजना के साथ 20% तक की बचत करें।",
+      "MONTHLY": "मासिक",
+      "YEARLY": "वार्षिक",
+      "FREE": "मुफ़्त",
+      "CURRENT_PLAN": "वर्तमान योजना",
+      "RECOMMENDED": "अनुशंसित",
+      "CHOOSE_PLAN": "योजना चुनें",
+      "UPGRADE": "अपग्रेड",
+      "MANAGE_PLAN": "योजना प्रबंधित करें",
+      "CONTACT_SALES": "कस्टम योजना चाहिए? बिक्री से संपर्क करें"
+    },
+    "HISTORY": {
+      "TITLE": "सदस्यता इतिहास",
+      "SUBTITLE": "अपनी पिछली सदस्यता गतिविधियों को देखें और प्रबंधित करें।",
+      "DOWNLOAD": "इतिहास डाउनलोड करें",
+      "DATE": "तारीख",
+      "PLAN": "खरीदी गई योजना",
+      "AMOUNT": "भुगतान की गई राशि",
+      "BILLING_CYCLE": "बिलिंग चक्र",
+      "PAYMENT_STATUS": "भुगतान स्थिति",
+      "PLAN_TYPE": "योजना प्रकार",
+      "FILTERS": {
+        "ALL": "सभी",
+        "RENEWALS": "नवीनीकरण",
+        "UPGRADES": "अपग्रेड",
+        "PAYMENTS": "भुगतान"
+      },
+      "STATUS": {
+        "PAID": "भुगतान किया गया",
+        "PENDING": "लंबित",
+        "FAILED": "विफल",
+        "REFUNDED": "वापस किया गया"
+      },
+      "TYPE": {
+        "RENEWAL": "नवीनीकरण",
+        "UPGRADE": "अपग्रेड",
+        "DOWNGRADE": "डाउनग्रेड",
+        "TRIAL": "परीक्षण"
+      }
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "सेटिंग्स",
+    "ACCOUNT": "खाता सेटिंग्स",
+    "PROFILE": "प्रोफ़ाइल",
+    "NOTIFICATIONS": "सूचनाएं",
+    "LANGUAGE": "भाषा",
+    "THEME": "थीम"
+  }
+}

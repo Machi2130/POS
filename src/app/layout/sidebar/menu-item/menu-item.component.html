@@ -1,0 +1,50 @@
+<div class="mb-1">
+  <!-- Menu Item WITHOUT Children (Simple Link) -->
+  <a
+    *ngIf="!hasChildren()"
+    [routerLink]="item.route"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: false}"
+    class="menu-link">
+    <span class="material-symbols-outlined text-xl">
+      {{ item.icon }}
+    </span>
+    <span *ngIf="!collapsed" class="font-medium">{{ item.label }}</span>
+  </a>
+
+  <!-- Menu Item WITH Children (Dropdown Parent) -->
+  <div *ngIf="hasChildren()">
+    <!-- Parent Button -->
+    <button
+      (click)="toggleSubmenu()"
+      [class.active]="isSubmenuActive()"
+      class="menu-button w-full">
+      <span class="material-symbols-outlined text-xl">
+        {{ item.icon }}
+      </span>
+      <span *ngIf="!collapsed" class="flex-1 text-left font-medium">{{ item.label }}</span>
+      <span
+        *ngIf="!collapsed"
+        class="material-symbols-outlined text-lg chevron-icon"
+        [class.rotate-180]="isExpanded">
+        expand_more
+      </span>
+    </button>
+
+    <!-- Submenu Items (Dropdown) -->
+    <div
+      *ngIf="isExpanded && !collapsed"
+      class="submenu-wrapper">
+      <a
+        *ngFor="let child of item.children"
+        [routerLink]="child.route"
+        routerLinkActive="active-submenu"
+        class="submenu-link">
+        <span class="material-symbols-outlined submenu-icon">
+          {{ child.icon || 'radio_button_unchecked' }}
+        </span>
+        <span>{{ child.label }}</span>
+      </a>
+    </div>
+  </div>
+</div>

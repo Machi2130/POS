@@ -1,0 +1,165 @@
+<main class="flex-1 p-8 bg-dark min-h-screen">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Left Column - Main Content -->
+    <div class="lg:col-span-2">
+      <!-- Page Heading -->
+      <div class="flex flex-wrap justify-between gap-3 mb-6">
+        <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">Dashboard</h1>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div 
+          *ngFor="let stat of stats" 
+          class="flex flex-col gap-2 rounded-lg bg-card-dark p-6 border border-white/10 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all"
+        >
+          <p class="text-gray-400 text-base font-medium">{{ stat.title }}</p>
+          <p class="text-white tracking-tight text-3xl font-bold">{{ stat.value }}</p>
+          <div class="flex items-center gap-2 mt-1">
+            <div 
+              class="w-1 h-4 rounded-full"
+              [ngClass]="stat.isPositive ? 'bg-green-500' : 'bg-red-500'"
+            ></div>
+            <p 
+              class="text-sm font-medium"
+              [ngClass]="stat.isPositive ? 'text-green-500' : 'text-red-500'"
+            >
+              {{ stat.change }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Overview Chart -->
+      <div class="mb-8">
+        <div class="flex flex-col gap-2 rounded-lg border bg-card-dark border-white/10 p-6 shadow-lg shadow-black/20 min-h-[400px]">
+          <div class="flex justify-between items-center mb-4">
+            <p class="text-white text-lg font-semibold">Sales Overview</p>
+            <button class="flex items-center gap-2 text-sm text-gray-300 bg-white/5 px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">
+              Last 7 Days
+              <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 0, 'wght' 400;">expand_more</span>
+            </button>
+          </div>
+          <div class="flex min-h-[300px] flex-1 flex-col justify-end gap-8 py-4">
+            <svg fill="none" height="100%" preserveAspectRatio="none" viewBox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H0V109Z" fill="url(#paint0_linear_chart)"></path>
+              <path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#135bec" stroke-linecap="round" stroke-width="3"></path>
+              <defs>
+                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_chart" x1="236" x2="236" y1="1" y2="149">
+                  <stop stop-color="#135bec" stop-opacity="0.3"></stop>
+                  <stop offset="1" stop-color="#135bec" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div>
+        <h2 class="text-lg font-semibold text-white mb-4">Quick Actions</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <button 
+            (click)="onNewSale()"
+            class="flex items-center justify-center gap-2 p-4 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-all hover:shadow-lg hover:shadow-primary/30 active:scale-95"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 600;">add</span>
+            New Sale
+          </button>
+          <button 
+            (click)="onAddItem()"
+            class="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/10 text-white border border-white/20 font-semibold hover:bg-white/20 transition-all active:scale-95"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 600;">add_shopping_cart</span>
+            Add Item
+          </button>
+          <button 
+            (click)="onAddCustomer()"
+            class="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/10 text-white border border-white/20 font-semibold hover:bg-white/20 transition-all active:scale-95"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 600;">person_add</span>
+            Add Customer
+          </button>
+          <button 
+            (click)="onViewReports()"
+            class="flex items-center justify-center gap-2 p-4 rounded-lg bg-white/10 text-white border border-white/20 font-semibold hover:bg-white/20 transition-all active:scale-95"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 600;">summarize</span>
+            View Reports
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Sidebar Widgets -->
+    <div class="lg:col-span-1 flex flex-col gap-6">
+      <!-- Connect Bank Account -->
+      <div class="rounded-lg bg-card-dark p-6 border border-white/10 shadow-lg shadow-black/20">
+        <h3 class="font-semibold text-white mb-4">Connect Bank Account</h3>
+        <p class="text-sm text-gray-400 mb-4">Sync transactions automatically and get a clearer financial overview.</p>
+        <button 
+          (click)="onConnectBank()"
+          class="w-full rounded-md bg-primary/20 text-primary font-semibold py-2.5 hover:bg-primary/30 transition-colors"
+        >
+          Connect Now
+        </button>
+      </div>
+
+      <!-- Payment Reminders -->
+      <div class="rounded-lg bg-card-dark p-6 border border-white/10 shadow-lg shadow-black/20">
+        <h3 class="font-semibold text-white mb-4">Payment Reminders</h3>
+        <div class="flex flex-col gap-3">
+          <div class="flex justify-between items-center text-sm p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-orange-500 text-base">schedule</span>
+              <p class="text-gray-300">Invoice #1025</p>
+            </div>
+            <p class="text-orange-500 font-medium">Due in 2 days</p>
+          </div>
+          <div class="flex justify-between items-center text-sm p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-500 text-base">error</span>
+              <p class="text-gray-300">Invoice #1023</p>
+            </div>
+            <p class="text-red-500 font-medium">Overdue</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="rounded-lg bg-card-dark p-6 border border-white/10 shadow-lg shadow-black/20">
+        <h3 class="font-semibold text-white mb-4">Recent Activity</h3>
+        <ul class="space-y-4">
+          <li 
+            *ngFor="let activity of recentActivities" 
+            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors"
+          >
+            <div 
+              class="flex items-center justify-center size-8 rounded-full flex-shrink-0"
+              [ngClass]="{
+                'bg-green-500/20': activity.iconColor === 'green',
+                'bg-blue-500/20': activity.iconColor === 'blue',
+                'bg-purple-500/20': activity.iconColor === 'purple'
+              }"
+            >
+              <span 
+                class="material-symbols-outlined text-lg"
+                [ngClass]="{
+                  'text-green-400': activity.iconColor === 'green',
+                  'text-blue-400': activity.iconColor === 'blue',
+                  'text-purple-400': activity.iconColor === 'purple'
+                }"
+              >
+                {{ activity.icon }}
+              </span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-white truncate">{{ activity.title }}</p>
+              <p class="text-xs text-gray-400">{{ activity.time }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>

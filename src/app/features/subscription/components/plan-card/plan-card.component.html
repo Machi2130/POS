@@ -1,0 +1,73 @@
+<div 
+  class="plan-card flex flex-1 flex-col gap-6 rounded-xl border border-solid p-6 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+  [class.highlighted]="plan.isCurrentPlan || plan.isRecommended"
+>
+  <!-- Current Plan Badge -->
+  <div 
+    *ngIf="plan.isCurrentPlan"
+    class="badge-current absolute top-0 right-0 text-xs font-bold leading-normal tracking-[0.015em] px-4 py-1.5"
+    style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 15% 50%); padding-left: 20px;"
+  >
+    Current Plan
+  </div>
+
+  <!-- Recommended Badge -->
+  <div 
+    *ngIf="plan.isRecommended && !plan.isCurrentPlan"
+    class="badge-recommended absolute top-0 right-0 text-xs font-bold leading-normal tracking-[0.015em] px-4 py-1.5"
+    style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 15% 50%); padding-left: 20px;"
+  >
+    Recommended
+  </div>
+
+  <!-- Plan Header -->
+  <div class="flex flex-col gap-2" [class.mt-4]="plan.isCurrentPlan || plan.isRecommended">
+    <h1 class="text-lg font-bold leading-tight">{{ plan.displayName }}</h1>
+    <p class="plan-description text-sm">{{ plan.description }}</p>
+    
+    <!-- Pricing -->
+    <p class="flex items-baseline gap-1 mt-2">
+      <span class="plan-price text-5xl font-black leading-tight tracking-[-0.033em]">
+        {{ priceLabel }}
+      </span>
+      <span 
+        *ngIf="currentPrice > 0"
+        class="text-base font-medium leading-tight"
+        style="color: var(--text-secondary)"
+      >
+        {{ periodLabel }}
+      </span>
+    </p>
+  </div>
+
+  <!-- Action Button -->
+  <button
+    (click)="onSelectPlan()"
+    class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 text-sm font-bold leading-normal tracking-[0.015em] transition-colors"
+    [ngClass]="{
+      'btn-upgrade': plan.buttonAction === 'upgrade',
+      'btn-manage': plan.buttonAction === 'manage' || plan.buttonAction === 'choose',
+      'bg-red-500/20 text-red-400 hover:bg-red-500/30': plan.buttonAction === 'downgrade'
+    }"
+  >
+    <span class="truncate">{{ plan.buttonText }}</span>
+  </button>
+
+  <!-- Features List -->
+  <div class="flex flex-col gap-3">
+    <div 
+      *ngFor="let feature of plan.features"
+      class="feature-item flex items-center gap-3 text-sm font-normal leading-normal"
+      [class.disabled]="!feature.enabled"
+    >
+      <span 
+        class="material-symbols-outlined text-lg"
+        [class.feature-icon-enabled]="feature.enabled"
+        [class.feature-icon-disabled]="!feature.enabled"
+      >
+        {{ feature.enabled ? 'check_circle' : 'cancel' }}
+      </span>
+      <span>{{ feature.name }}</span>
+    </div>
+  </div>
+</div>

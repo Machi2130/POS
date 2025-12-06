@@ -1,0 +1,40 @@
+<div class="relative language-switcher" (clickOutside)="closeDropdown()">
+  <!-- Current Language Button -->
+  <button
+    (click)="toggleDropdown()"
+    class="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors btn-manage"
+  >
+    <span class="text-xl">{{ currentLanguage.flag }}</span>
+    <span class="text-sm font-medium hidden md:inline">{{ currentLanguage.nativeName }}</span>
+    <span class="material-symbols-outlined text-lg transition-transform" [class.rotate-180]="isOpen">
+      expand_more
+    </span>
+  </button>
+
+  <!-- Language Dropdown -->
+  <div
+    *ngIf="isOpen"
+    class="absolute right-0 mt-2 w-48 rounded-lg shadow-lg border overflow-hidden language-dropdown"
+    style="background-color: var(--bg-card); border-color: var(--border-color);"
+  >
+    <button
+      *ngFor="let language of languages"
+      (click)="selectLanguage(language)"
+      class="w-full flex items-center gap-3 px-4 py-3 transition-colors language-option"
+      [class.active]="language.code === currentLanguage.code"
+    >
+      <span class="text-xl">{{ language.flag }}</span>
+      <div class="flex flex-col items-start">
+        <span class="text-sm font-medium">{{ language.nativeName }}</span>
+        <span class="text-xs" style="color: var(--text-muted)">{{ language.name }}</span>
+      </div>
+      <span
+        *ngIf="language.code === currentLanguage.code"
+        class="material-symbols-outlined text-lg ml-auto"
+        style="color: var(--primary)"
+      >
+        check_circle
+      </span>
+    </button>
+  </div>
+</div>
